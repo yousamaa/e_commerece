@@ -11,14 +11,15 @@
 
   <body>
     <%= render 'home/header' %>
+
     <div class="container">
-      <br>
+    
       <% if (notice || alert) %>
         <%= render 'layouts/alerts' %>
       <% end %>
 
-      <br/>
       <%= yield %>
     </div>
+
   </body>
 </html>
