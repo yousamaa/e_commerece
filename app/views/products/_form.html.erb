@@ -1,6 +1,6 @@
 <div class="panel-body">
   <%= form_with model: product,local: true do |form| %>
-    <%= render 'error', product: product %>
+    <%= render 'shared/error_messages',resource: product %>
     <div class="field form-group">
       <br>
       <%= form.text_field :name, autofocus: true, autocomplete: "name", class: "form-control", placeholder: "Name" %>

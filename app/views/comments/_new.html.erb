@@ -4,6 +4,7 @@
   </div>
   <div class="panel-body">
     <%= form_with model: @comment, url: product_comments_path(params[:id]), method: :post  do |form| %>
+      <%= render 'shared/error_messages',resource: @comment %>
       <div class="field form-group">
         <%= form.text_area :content, autocomplete: "content", class: "form-control", placeholder: "Add a comment" %>
       </div>
