@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :products
   has_many :comments
   has_one :cart
+  validates :name, :email, presence: true
 
   after_commit :add_default_avatar, on: %i[create update]
 

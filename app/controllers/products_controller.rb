@@ -1,15 +1,11 @@
 class ProductsController < ApplicationController
+  before_action :set_product, only: %i[show edit update destroy]
+
   def index
     @products = Product.all.with_attached_images
   end
 
-  def create
-    product = current_user.products.create(product_params)
-    redirect_to product
-  end
-
   def show
-    @product = Product.find(params[:id])
     @comments = Comment.where(product_id: params[:id])
     @comment  = @product.comments.build
   end
@@ -18,7 +14,47 @@ class ProductsController < ApplicationController
     @product = Product.new
   end
 
+  def edit() end
+
+  def create
+    @product = Product.new(product_params)
+    @product.user_id = current_user.id
+    respond_to do |format|
+      if @product.save
+        format.html { redirect_to @product, notice: 'Product was successfully created.' }
+        format.json { render :show, status: :created, location: @product }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @product.update(product_params)
+        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
+        format.json { render :show, status: :ok, location: @product }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @product.destroy
+    respond_to do |format|
+      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
   private
+
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
   def product_params
     params.require(:product).permit(:name, :price, images: [])
