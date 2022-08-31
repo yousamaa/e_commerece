@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :products
   has_many :comments
   has_one :cart
+  validates :name, :email, presence: true
 
   after_commit :add_default_avatar, on: %i[create update]
 
@@ -14,7 +15,7 @@ class User < ApplicationRecord
     if avatar.attached?
       avatar
     else
-      'default_profile.png'
+      'default_profile.jpg'
     end
   end
 
@@ -25,9 +26,9 @@ class User < ApplicationRecord
       avatar.attach(
         io: File.open(
           Rails.root.join(
-            'app', 'assets', 'images', 'default_profile.png'
+            'app', 'assets', 'images', 'default_profile.jpg'
           )
-        ), filename: 'default_profile.png', content_type: 'image/png'
+        ), filename: 'default_profile.jpg', content_type: 'image/jpg'
       )
     end
   end
