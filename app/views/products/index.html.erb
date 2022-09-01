@@ -58,7 +58,8 @@
           </div>
           <% if product.user_id != current_user.id %>
             <div style="margin-left:5px">
-              <%= button_to "Buy Product", product_path(product.id), method: :patch, class: "btn btn-success" %>
+              <%= button_to "Buy Product", checkout_create_path, params: {:product_id => product.id }, remote: true %>
+              <%#<%= button_to "Buy Product", product_path(product.id), method: :patch, class: "btn btn-success" %>
             </div>
           <% end %>
           <% if product.user_id == current_user.id %>
