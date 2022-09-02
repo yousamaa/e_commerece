@@ -24,9 +24,6 @@
           <%= link_to 'Edit Profile', edit_user_registration_path, class:"nav-link" %>
         </li>
         <li>
-          <%= link_to 'Products', products_path, class:"nav-link" %>
-        </li>
-        <li>
           <%= link_to 'Add new Product', new_product_path, class:"nav-link" %>
         </li>
         <% else %>
@@ -37,6 +34,12 @@
             <%= link_to 'Sign In', new_user_session_path, class:"nav-link" %>
           </li>
         <% end %>
+        <li>
+          <%= link_to 'Products', products_path, class:"nav-link" %>
+        </li>
+        <li>
+          <%= link_to 'Cart', cart_path(@cart), class:"nav-link" %>
+        </li>
       </ul>
       <form class="navbar-form navbar-right">
         <div class="form-group">
