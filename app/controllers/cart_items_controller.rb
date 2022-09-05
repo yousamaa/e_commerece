@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartItemsController < ApplicationController
   before_action :authenticate_user!, except: [:create]
 
@@ -22,7 +24,7 @@ class CartItemsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
 
   def cart_item_params

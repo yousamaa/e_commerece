@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   def index
     @comments = Comment.where(product_id: params[:id])
   end
-  
+
   def show
     @comment = Comment.find(params[:id])
   end
@@ -24,12 +26,10 @@ class CommentsController < ApplicationController
     end
   end
 
-  def update
-  end
+  def update; end
 
-  def destroy
-  end
-  
+  def destroy; end
+
   private
 
   def comment_params
