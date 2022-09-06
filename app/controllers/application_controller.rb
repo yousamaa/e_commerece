@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_render_cart
   before_action :initialize_cart
+  rescue_from Pundit::NotAuthorizedError, with: :resource_not_authorized
 
   protected
 
@@ -23,5 +25,12 @@ class ApplicationController < ActionController::Base
 
     @cart = Cart.create
     session[:cart_id] = @cart.id
+  end
+
+  private
+
+  def resource_not_authorized
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to(request.referer || root_path)
   end
 end

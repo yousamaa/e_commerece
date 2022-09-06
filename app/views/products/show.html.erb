@@ -49,10 +49,10 @@
     
     <br><br>
     <div>
-      <%= render partial:'comments/index', locals: {comments: @comments} %>
+      <%= render 'comments/comment' %>
     </div>
     <div>
-      <%= render partial:'comments/new', locals: {comment: @comment} %>
+      <%= render 'comments/form' %>
     </div>
   </div>
 </div>

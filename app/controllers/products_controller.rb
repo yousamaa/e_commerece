@@ -9,7 +9,8 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @comments = Comment.where(product_id: params[:id])
+    # @comments = Comment.where(product_id: params[:id])
+    @comments = @product.comments.includes(:user).all
     @comment  = @product.comments.build
   end
 
