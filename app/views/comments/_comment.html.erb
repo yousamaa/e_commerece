@@ -1,0 +1,31 @@
+<% @comments.each do |comment| %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong><%= comment.user.name %></strong>
+    </div>
+    <div class="panel-body">
+      <%= comment.content %>
+      <% if comment.user_id == current_user.id %>
+        <br><br>
+        <div class="btn-group">
+          <div style="display:flex">
+            <div>
+              <%= link_to "Edit", nil, remote: true, class:"btn btn-warning",
+              data: {
+                controller: "comments",
+                action: "comments#toggleForm",
+                comments_form_param: "edit-form-#{comment.id}",
+                comments_body_param: "comment-body-#{comment.id}",
+              } %>
+              <%#<%= link_to 'Edit', [comment.product, comment], method: :patch, class: "btn btn-sm btn-info", data: { confirm: 'Are you sure?' } %>
+              <%#<%= link_to "Edit Comment", edit_product_comment_path(comment.user_id, comment.product_id), class: "btn btn-sm btn-info" %>
+            </div>
+            <div style="margin-left:5px">
+              <%= link_to 'Delete', [comment.product, comment], method: :delete, class: "btn btn-danger", data: { confirm: 'Are you sure?' } %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

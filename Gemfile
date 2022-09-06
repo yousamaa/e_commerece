@@ -16,8 +16,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'letter_opener', group: :development
 gem 'pg', '>= 0.18', '< 2.0'
-gem "pundit"
 gem 'puma', '~> 3.11'
+gem 'pundit'
 gem 'rails', '~> 5.2.0'
 gem 'sass-rails', '~> 5.0'
 gem 'stripe'
