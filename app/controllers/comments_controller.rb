@@ -2,37 +2,28 @@
 
 class CommentsController < ApplicationController
   before_action :set_product
+  before_action :set_comment, except: %i[create]
 
   def create
     @comment = @product.comments.build(comment_params)
     @comment.user = current_user
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Comment was successfully created.' }
-      else
-        format.html { redirect_to @product, alert: 'Comment must have content.' }
-      end
-    end
+    @product.save
   end
 
+  def edit; end
+
   def update
-    @comment = @post.comments.find(params[:id])
-    respond_to do |format|
-      if @comment.update(comment_params)
-        format.html { redirect_to product_url(@product), notice: 'Comment has been updated' }
-      else
-        format.html { redirect_to product_url(@product), alert: 'Comment was not updated!' }
-      end
+    if @comment.update(comment_params)
+      flash[:notice] = 'Comment has been updated'
+      redirect_to product_path(@product)
+    else
+      flash[:alert] = 'Comment was not updated!'
+      redirect_to product_path(@product)
     end
   end
 
   def destroy
-    @comment = @product.comments.find(params[:id])
     @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Comment was successfully destroyed.' }
-      format.json { head :no_content }
-    end
   end
 
   private
@@ -43,5 +34,9 @@ class CommentsController < ApplicationController
 
   def set_product
     @product = Product.find(params[:product_id])
+  end
+
+  def set_comment
+    @comment = @product.comments.find(params[:id])
   end
 end

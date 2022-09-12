@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_many :products, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_one :cart, dependent: :destroy
+  has_many :cart, dependent: :destroy
   validates :name, :email, presence: true
 
   after_commit :add_default_avatar, on: %i[create update]

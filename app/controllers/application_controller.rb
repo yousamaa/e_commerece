@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_render_cart
-  before_action :initialize_cart
+  before_action :current_cart
   rescue_from Pundit::NotAuthorizedError, with: :resource_not_authorized
 
   protected
@@ -15,22 +14,18 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: %i[avatar name])
   end
 
-  def set_render_cart
-    @render_cart = true
-  end
-
-  def initialize_cart
-    @cart ||= Cart.find_by(id: session[:cart_id])
-    return @cart unless @cart.nil?
-
-    @cart = Cart.create
-    session[:cart_id] = @cart.id
-  end
-
   private
 
   def resource_not_authorized
     flash[:alert] = 'You are not authorized to perform this action.'
     redirect_to(request.referer || root_path)
+  end
+
+  def current_cart
+    @current_cart ||= Cart.find_by(id: session[:cart_id])
+    return @current_cart unless @current_cart.nil?
+
+    @current_cart = Cart.create
+    session[:cart_id] = @current_cart.id
   end
 end

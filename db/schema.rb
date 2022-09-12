@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2022_08_29_204330) do
   end
 
   create_table "cart_items", force: :cascade do |t|
-    t.integer "quantity"
+    t.integer "quantity", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2022_08_29_204330) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text "content"
+    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
@@ -64,8 +64,9 @@ ActiveRecord::Schema.define(version: 2022_08_29_204330) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.decimal "price"
+    t.string "name", default: "", null: false
+    t.decimal "price", default: "0.0", null: false
+    t.string "description", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
@@ -80,7 +81,7 @@ ActiveRecord::Schema.define(version: 2022_08_29_204330) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
+    t.string "name", default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
