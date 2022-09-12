@@ -16,6 +16,9 @@ Rails.application.routes.draw do
 
   resources :products do
     resources :comments
+    collection do
+      match 'search' => 'products#search', via: [:get, :post], as: :search
+    end
   end
 
   devise_for :users

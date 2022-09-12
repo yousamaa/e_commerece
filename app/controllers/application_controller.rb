@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :current_cart
+  before_action :set_search
   rescue_from Pundit::NotAuthorizedError, with: :resource_not_authorized
 
   protected
@@ -27,5 +28,9 @@ class ApplicationController < ActionController::Base
 
     @current_cart = Cart.create
     session[:cart_id] = @current_cart.id
+  end
+
+  def set_search
+    @search = Product.search(params[:q])
   end
 end
