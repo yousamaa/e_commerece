@@ -39,12 +39,14 @@
           <%= link_to '<span class="glyphicon glyphicon-shopping-cart"> </span>'.html_safe, cart_path(@current_cart), class:"nav-link" %>
         </li>
       </ul>
-      <form class="navbar-form navbar-right">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+      <div class="navbar-form navbar-right">
+        <%= search_form_for @search, url: search_products_path, html: { method: :post } do |f| %>
+          <div class="field form-group">
+            <%= f.text_field :name_cont, class: "form-control", placeholder: "Name contains" %>
+          </div>
+          <%= f.submit "Search", class:"btn btn-primary" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </nav>

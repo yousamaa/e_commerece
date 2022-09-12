@@ -5,11 +5,11 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    @products = Product.all.with_attached_images
+    @search = Product.search(params[:q])
+    @products = @search.result
   end
 
   def show
-    # @comments = Comment.where(product_id: params[:id])
     @comments = @product.comments.includes(:user).all
     @comment  = @product.comments.build
   end
@@ -52,6 +52,11 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def search
+    index
+    render :index
   end
 
   private
