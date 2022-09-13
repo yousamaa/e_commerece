@@ -5,7 +5,7 @@ require:
  
  
 AllCops:
-  NewCops: enable
+  NewCops: disable
   # Exclude auto-generated files by Rails
   TargetRubyVersion: 2.7
   TargetRailsVersion: 5.2

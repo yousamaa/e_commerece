@@ -5,25 +5,24 @@ class CheckoutController < ApplicationController
   include CartsHelper
 
   def create
-
     @session = Stripe::Checkout::Session.create({
-      payment_method_types: ['card'],
-      line_items: [{
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: 'Total'
-          },
-          unit_amount: (@total_bill * 100)
-        },
-        quantity: 1
-      }],
-      mode: 'payment',
-      metadata: { cart_id: params[:cart_id] },
-      customer_email: current_user.email,
-      success_url: root_url << 'checkout_success',
-      cancel_url: cart_url(@current_cart)
-    })
+                                                  payment_method_types: ['card'],
+                                                  line_items: [{
+                                                    price_data: {
+                                                      currency: 'usd',
+                                                      product_data: {
+                                                        name: 'Total'
+                                                      },
+                                                      unit_amount: (@total_bill * 100)
+                                                    },
+                                                    quantity: 1
+                                                  }],
+                                                  mode: 'payment',
+                                                  metadata: { cart_id: params[:cart_id] },
+                                                  customer_email: current_user.email,
+                                                  success_url: root_url << 'checkout_success',
+                                                  cancel_url: cart_url(@current_cart)
+                                                })
     respond_to do |format|
       format.js
     end
@@ -41,4 +40,4 @@ class CheckoutController < ApplicationController
     cart = Cart.find_by(id: params[:cart_id])
     @total_bill = total_bill(cart).to_i
   end
-end 
+end
