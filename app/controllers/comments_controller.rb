@@ -15,11 +15,10 @@ class CommentsController < ApplicationController
   def update
     if @comment.update(comment_params)
       flash[:notice] = 'Comment has been updated'
-      redirect_to product_path(@product)
     else
       flash[:alert] = 'Comment was not updated!'
-      redirect_to product_path(@product)
     end
+    redirect_to product_path(@product)
   end
 
   def destroy
