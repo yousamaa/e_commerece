@@ -14,14 +14,14 @@ class CheckoutController < ApplicationController
           product_data: {
             name: 'Total'
           },
-          unit_amount: @total_bill
+          unit_amount: (@total_bill * 100)
         },
         quantity: 1
       }],
       mode: 'payment',
       metadata: { cart_id: params[:cart_id] },
       customer_email: current_user.email,
-      success_url: root_url + 'checkout_success',
+      success_url: root_url << 'checkout_success',
       cancel_url: cart_url(@current_cart)
     })
     respond_to do |format|
