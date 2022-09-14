@@ -3,8 +3,8 @@
 class CreateProducts < ActiveRecord::Migration[5.2]
   def change
     create_table :products do |t|
-      t.string :name, null: false, default: ''
-      t.decimal :price, null: false, default: 0
+      t.string :name, null: false, default: '', unique: true
+      t.integer :price, null: false, default: 0
       t.string :description, null: false, default: ''
 
       t.timestamps

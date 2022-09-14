@@ -2,10 +2,14 @@
 
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :current_cart
   before_action :set_search
+
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActiveRecord::RecordNotUnique, with: :record_not_unique
   rescue_from Pundit::NotAuthorizedError, with: :resource_not_authorized
 
   protected
@@ -32,5 +36,13 @@ class ApplicationController < ActionController::Base
 
   def set_search
     @search = Product.search(params[:q])
+  end
+
+  def record_not_found
+    redirect_to root_path, notice: 'Record not Found!'
+  end
+
+  def record_not_unique
+    redirect_to root_path, notice: 'Record not unique!'
   end
 end

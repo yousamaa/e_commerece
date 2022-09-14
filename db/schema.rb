@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_13_092356) do
+ActiveRecord::Schema.define(version: 2022_09_14_135727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(version: 2022_09_13_092356) do
     t.integer "quantity", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "product_id"
-    t.bigint "cart_id"
+    t.bigint "product_id", null: false
+    t.bigint "cart_id", null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
     t.index ["product_id"], name: "index_cart_items_on_product_id"
   end
@@ -57,19 +57,10 @@ ActiveRecord::Schema.define(version: 2022_09_13_092356) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
-    t.bigint "product_id"
+    t.bigint "user_id", null: false
+    t.bigint "product_id", null: false
     t.index ["product_id"], name: "index_comments_on_product_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
-  create_table "coupon_users", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "coupon_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["coupon_id"], name: "index_coupon_users_on_coupon_id"
-    t.index ["user_id"], name: "index_coupon_users_on_user_id"
   end
 
   create_table "coupons", force: :cascade do |t|
@@ -78,15 +69,18 @@ ActiveRecord::Schema.define(version: 2022_09_13_092356) do
     t.datetime "valid_till", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_coupons_on_user_id"
   end
 
   create_table "products", force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.decimal "price", default: "0.0", null: false
+    t.integer "price", default: 0, null: false
     t.string "description", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
+    t.index ["name"], name: "index_products_on_name", unique: true
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
@@ -109,5 +103,6 @@ ActiveRecord::Schema.define(version: 2022_09_13_092356) do
   add_foreign_key "carts", "users"
   add_foreign_key "comments", "products"
   add_foreign_key "comments", "users"
+  add_foreign_key "coupons", "users"
   add_foreign_key "products", "users"
 end
