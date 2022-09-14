@@ -13,6 +13,11 @@
 
     <div class="field form-group">
       <br>
+      <%= form.text_field :description, autocomplete: "description", class: "form-control", placeholder: "Description" %>
+    </div>
+
+    <div class="field form-group">
+      <br>
       <%= form.file_field :images, multiple: true %>
     </div>
 

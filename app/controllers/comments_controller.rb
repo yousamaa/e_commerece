@@ -32,10 +32,10 @@ class CommentsController < ApplicationController
   end
 
   def set_product
-    @product = Product.find(params[:product_id])
+    @product = Product.find_by(params[:product_id])
   end
 
   def set_comment
-    @comment = @product.comments.find(params[:id])
+    @comment = @product.comments.find_by(params[:id])
   end
 end
