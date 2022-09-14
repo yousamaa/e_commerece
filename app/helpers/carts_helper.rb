@@ -4,9 +4,9 @@ module CartsHelper
   def total_bill(cart)
     coupon = Coupon.find_by(user_id: cart.user_id)
     sum = 0
-    cart.cart_items.each do |cart_item|
-      sum += cart_item.product.price * cart_item.quantity
-    end
+
+    cart.cart_items.each { |cart_item| sum += cart_item.product.price * cart_item.quantity }
+    
     return sum - (sum * discount(coupon)) unless coupon.nil? || coupon_valid_till(coupon) < DateTime.now
 
     sum

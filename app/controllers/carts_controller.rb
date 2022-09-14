@@ -9,7 +9,15 @@ class CartsController < ApplicationController
 
   def destroy
     @cart.destroy
+
+    if @cart.destroy
+      flash[:notice] = 'Cart deleted successfully!'
+    else
+      flash[:alert] = 'Cart not deleted!.'
+    end
+
     session[:cart_id] = nil
+
     respond_to do |format|
       format.html { redirect_to root_path }
       format.json { head :no_content }

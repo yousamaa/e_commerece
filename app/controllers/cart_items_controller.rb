@@ -8,7 +8,7 @@ class CartItemsController < ApplicationController
 
     if @current_cart.products.include?(chosen_product)
       @cart_item = @current_cart.cart_items.find_by(product_id: chosen_product)
-      @cart_item.quantity += 1
+      @cart_item.quantity.succ
     else
       @cart_item = CartItem.new
       @cart_item.cart = @current_cart
@@ -20,8 +20,14 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    @cart_item = CartItem.find_by(params[:id])
-    @cart_item.destroy
+    @cart_item = CartItem.find_by(id: params[:id])
+
+    if @cart_item.destroy
+      flash[:notice] = 'Cart Item deleted successfully!'
+    else
+      flash[:alert] = 'Cart Item not deleted!.'
+    end
+
     redirect_to cart_path(@current_cart)
   end
 

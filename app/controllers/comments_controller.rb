@@ -7,7 +7,12 @@ class CommentsController < ApplicationController
   def create
     @comment = @product.comments.build(comment_params)
     @comment.user = current_user
-    @product.save
+
+    if @product.save
+      flash[:notice] = 'Comment created successfully!'
+    else
+      flash[:alert] = 'Comment not created!'
+    end
   end
 
   def edit; end
@@ -32,10 +37,10 @@ class CommentsController < ApplicationController
   end
 
   def set_product
-    @product = Product.find_by(params[:product_id])
+    @product = Product.find_by(id: params[:product_id])
   end
 
   def set_comment
-    @comment = @product.comments.find_by(params[:id])
+    @comment = @product.comments.find_by(id: params[:id])
   end
 end
