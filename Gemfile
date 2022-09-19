@@ -44,6 +44,10 @@ group :development, :test do
   gem 'rubocop-rails'
 end
 
+group :development, :test do
+  gem 'rspec-rails', '~> 5.0.0'
+end
+
 group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'chromedriver-helper'
