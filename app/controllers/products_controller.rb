@@ -23,34 +23,29 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.user_id = current_user.id
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.save
+      redirect_to @product
+      flash[:notice] = 'Product was successfully created.'
+    else
+      flash[:alert] = 'Product was not created.'
     end
   end
 
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @product }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.update(product_params)
+      redirect_to @product
+      flash[:notice] = 'Product was successfully updated.'
+    else
+      flash[:alert] = 'Product was not updated.'
     end
   end
 
   def destroy
-    @product.destroy
-    respond_to do |format|
-      format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
-      format.json { head :no_content }
+    if @product.destroy
+      redirect_to products_url
+      flash[:notice] = 'Product was successfully deleted.'
+    else
+      flash[:alert] = 'Product was not deleted.'
     end
   end
 
@@ -62,7 +57,7 @@ class ProductsController < ApplicationController
   private
 
   def set_product
-    @product = Product.find_by(id: params[:id])
+    @product = Product.find(params[:id])
   end
 
   def product_params

@@ -19,6 +19,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'pundit'
 gem 'rails', '~> 5.2.0'
+gem 'rails-controller-testing'
 gem 'ransack'
 gem 'sass-rails', '~> 5.0'
 gem 'simple_form'
@@ -44,10 +45,17 @@ group :development, :test do
   gem 'rubocop-rails'
 end
 
+group :development, :test do
+  gem 'rspec-rails', '~> 5.0.0'
+  gem 'factory_bot_rails'
+end
+
 group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'chromedriver-helper'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 2.35.1'
+  gem 'shoulda-matchers', '~> 5.0'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'simplecov', require: false, group: :test
