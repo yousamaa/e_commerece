@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 class CartsController < ApplicationController
-  before_action :set_cart, only: %i[show destroy]
+  before_action :set_cart, only: %i[show]
+  before_action :set_cart_to_delete, only: %i[destroy]
   before_action :authenticate_user!, except: [:show]
   before_action :set_cart_user, only: [:show]
 
   def show; end
 
   def destroy
-    @cart.destroy
-
     if @cart.destroy
       flash[:notice] = 'Cart deleted successfully!'
     else
@@ -25,6 +24,10 @@ class CartsController < ApplicationController
   end
 
   private
+
+  def set_cart_to_delete
+    @cart = Cart.find(params[:id])
+  end
 
   def set_cart
     @cart = @current_cart

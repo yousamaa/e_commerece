@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_many :products, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :cart, dependent: :destroy
+  has_many :carts, dependent: :destroy
   has_many :coupons, dependent: :destroy
 
   validates :name, :email, presence: true
@@ -14,14 +14,8 @@ class User < ApplicationRecord
   after_commit :add_default_avatar, on: %i[create update]
 
   def avatar_thumbnail
-    if avatar.attached?
-      avatar
-    else
-      'default_profile.jpg'
-    end
+    avatar
   end
-
-  private
 
   def add_default_avatar
     return if avatar.attached?
