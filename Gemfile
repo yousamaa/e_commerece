@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.2'
 gem 'activestorage'
+gem 'active_model_serializers', '~> 0.10.13'
 gem 'bootstrap-sass'
 gem 'devise'
 
@@ -21,6 +22,7 @@ gem 'pundit'
 gem 'rails', '~> 5.2.0'
 gem 'rails-controller-testing'
 gem 'ransack'
+gem 'rack-cors'
 gem 'sass-rails', '~> 5.0'
 gem 'simple_form'
 gem 'stripe'

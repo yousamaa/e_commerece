@@ -19,11 +19,11 @@
           1,
           null,
           1,
-          1,
+          0,
           null,
           null,
           1,
-          10,
+          5,
           null,
           0,
           null,
@@ -128,6 +128,15 @@
           1,
           null
         ]
+      },
+      "/home/dev/Documents/Projects/e_commerce/app/serializers/product_serializer.rb": {
+        "lines": [
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
       },
       "/home/dev/Documents/Projects/e_commerce/app/jobs/application_job.rb": {
         "lines": [
@@ -358,6 +367,39 @@
         "branches": {
         }
       },
+      "/home/dev/Documents/Projects/e_commerce/app/controllers/api/v1/api_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/home/dev/Documents/Projects/e_commerce/app/controllers/api/v1/products_controller.rb": {
+        "lines": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
       "/home/dev/Documents/Projects/e_commerce/app/controllers/application_controller.rb": {
         "lines": [
           null,
@@ -365,7 +407,7 @@
           0,
           0,
           null,
-          0,
+          null,
           0,
           0,
           0,
@@ -519,7 +561,7 @@
           null,
           0,
           0,
-          0,
+          null,
           null,
           0,
           0,
@@ -586,6 +628,6 @@
         }
       }
     },
-    "timestamp": 1664108696
+    "timestamp": 1665972705
   }
 }
