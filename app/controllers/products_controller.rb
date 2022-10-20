@@ -2,7 +2,7 @@
 
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy]
-  before_action :authenticate_user!, except: [:index]
+  # before_action :authenticate_user!, except: [:index]
 
   def index
     @search = Product.search(params[:q])
