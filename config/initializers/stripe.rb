@@ -1,3 +1,4 @@
 # frozen_string_literal: true
-
-Stripe.api_key = Rails.application.credentials[:stripe][:secret]
+if Rails.env.production?
+  Stripe.api_key = Rails.application.credentials[:stripe][:secret]
+end
